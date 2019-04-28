@@ -23,7 +23,7 @@ import (
 	"log"
 
 	"github.com/kubeflow/katib/pkg/api/operators/apis"
-	controller "github.com/kubeflow/katib/pkg/controller/v1alpha2"
+	controller "github.com/kubeflow/katib/pkg/controller/v1alpha3"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
