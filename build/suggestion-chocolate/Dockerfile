@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM cargo.caicloud.xyz/library/python:3.6-slim
 
 RUN if [ "$(uname -m)" = "ppc64le" ] || [ "$(uname -m)" = "aarch64" ]; then \
         apt-get -y update && \
