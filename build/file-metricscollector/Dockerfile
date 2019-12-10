@@ -1,0 +1,21 @@
+# Build the manager binary
+FROM cargo.caicloud.xyz/library/golang:1.12.12-stretch as build-env
+
+# Copy in the go src
+ADD . /go/src/github.com/kubeflow/katib
+
+WORKDIR /go/src/github.com/kubeflow/katib/cmd/metricscollector/v1alpha3/file-metricscollector/
+
+# Build
+RUN if [ "$(uname -m)" = "ppc64le" ]; then \
+        CGO_ENABLED=0 GOOS=linux GOARCH=ppc64le go build -a -o file-metricscollector ./; \
+    elif [ "$(uname -m)" = "aarch64" ]; then \
+        CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -a -o file-metricscollector ./; \
+    else \
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o file-metricscollector ./; \
+    fi
+
+FROM cargo.caicloud.xyz/library/debian:stretch
+WORKDIR /app
+COPY --from=build-env /go/src/github.com/kubeflow/katib/cmd/metricscollector/v1alpha3/file-metricscollector/file-metricscollector .
+ENTRYPOINT ["./file-metricscollector"]
