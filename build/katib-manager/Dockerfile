@@ -8,13 +8,15 @@ RUN if [ "$(uname -m)" = "ppc64le" ] || [ "$(uname -m)" = "aarch64" ]; then \
     else \
         go build -o katib-manager ./v1alpha3; \
     fi
+
 RUN GRPC_HEALTH_PROBE_VERSION=v0.3.1 && \
     if [ "$(uname -m)" = "ppc64le" ]; then \
 	wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-ppc64le; \
     else \
 	wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64; \
-    fi && \
-    chmod +x /bin/grpc_health_probe
+    fi
+    
+RUN chmod +x /bin/grpc_health_probe
 
 FROM cargo.caicloud.xyz/library/debian:stretch
 WORKDIR /app
