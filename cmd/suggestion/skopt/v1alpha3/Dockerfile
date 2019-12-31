@@ -18,7 +18,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.3.1 && \
 
 ADD . /usr/src/app/github.com/kubeflow/katib
 WORKDIR /usr/src/app/github.com/kubeflow/katib/cmd/suggestion/skopt/v1alpha3
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH /usr/src/app/github.com/kubeflow/katib:/usr/src/app/github.com/kubeflow/katib/pkg/apis/manager/v1alpha3/python:/usr/src/app/github.com/kubeflow/katib/pkg/apis/manager/health/python
 
