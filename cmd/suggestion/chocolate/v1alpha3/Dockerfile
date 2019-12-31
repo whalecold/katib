@@ -18,10 +18,9 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.3.1 && \
     fi && \
     chmod +x /bin/grpc_health_probe
 
-ADD ./pkg/ ${TARGET_DIR}/pkg/
-ADD ./${SUGGESTION_DIR}/ ${TARGET_DIR}/${SUGGESTION_DIR}/
-WORKDIR  ${TARGET_DIR}/${SUGGESTION_DIR}
-RUN pip install --no-cache-dir -r requirements.txt
+ADD . /usr/src/app/github.com/kubeflow/katib
+WORKDIR /usr/src/app/github.com/kubeflow/katib/cmd/suggestion/chocolate/v1alpha3
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir -r requirements.txt
 
 RUN chgrp -R 0 ${TARGET_DIR} \
   && chmod -R g+rwX ${TARGET_DIR}
