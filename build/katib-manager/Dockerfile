@@ -11,7 +11,6 @@ RUN if [ "$(uname -m)" = "ppc64le" ] || [ "$(uname -m)" = "aarch64" ]; then \
 
 FROM cargo.caicloud.xyz/library/debian:stretch
 WORKDIR /app
-COPY --from=build-env /bin/grpc_health_probe /bin/
 COPY --from=build-env /go/src/github.com/kubeflow/katib/cmd/db-manager/katib-db-manager /app/
 ENTRYPOINT ["./katib-db-manager"]
 CMD ["-w", "kubernetes"]
