@@ -6,6 +6,8 @@ RUN if [ "$(uname -m)" = "ppc64le" ] || [ "$(uname -m)" = "aarch64" ]; then \
         pip install cython 'numpy>=1.13.3'; \
     fi
 
+RUN apt-get -y install git
+
 ADD . /usr/src/app/github.com/kubeflow/katib
 WORKDIR /usr/src/app/github.com/kubeflow/katib/cmd/suggestion/chocolate/v1alpha3
 RUN pip install --no-cache-dir -r requirements.txt
